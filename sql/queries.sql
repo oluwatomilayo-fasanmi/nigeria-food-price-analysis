@@ -1,5 +1,4 @@
-1. Which geopolitical zone has the highest average food prices across all items and all 19 months?
-
+---1. Which geopolitical zone has the highest average food prices across all items and all 19 months?
 
 SELECT zone, ROUND(AVG(price), 2) AS avg_price
 FROM (
@@ -19,7 +18,7 @@ GROUP BY zone
 ORDER BY avg_price DESC
 LIMIT 1;
 
-2. What is the cheapest food item on average across all six zones?
+---2. What is the cheapest food item on average across all six zones?
 
 WITH item_zone_avg AS (
     SELECT 
@@ -63,7 +62,7 @@ WHERE rn = 1
 ORDER BY zone;
 
 
-3. What is the most expensive food item on average across all six zones?
+---3. What is the most expensive food item on average across all six zones?
 
 WITH item_zone_avg AS (
     SELECT 
@@ -106,7 +105,7 @@ FROM ranked
 WHERE rn = 1
 ORDER BY zone;
 
-4. What was the total average food price across all zones in November 2024 compared to May 2026? Has food generally gotten more expensive?
+---4. What was the total average food price across all zones in November 2024 compared to May 2026? Has food generally gotten more expensive?
 
 SELECT
     date,
@@ -123,7 +122,7 @@ WHERE date IN ('2024-11-01', '2026-05-01')
 GROUP BY date
 ORDER BY date;
 
-5. Which geopolitical zone consistently has the lowest average food prices and by how much does it differ from the most expensive zone?
+---5. Which geopolitical zone consistently has the lowest average food prices and by how much does it differ from the most expensive zone?
 
 WITH zone_avgs AS (
     SELECT 'North Central' AS zone, AVG(north_central) AS avg_price FROM food_prices
@@ -153,8 +152,7 @@ FROM (
 ) t
 WHERE avg_price = min_price;
 
-6. Which geopolitical zone is experiencing the fastest rise in food prices over the 19 months and is on track to become the most expensive zone to live in?
-
+---6. Which geopolitical zone is experiencing the fastest rise in food prices over the 19 months and is on track to become the most expensive zone to live in?
 
 The below query shows:
 
@@ -204,7 +202,7 @@ SELECT
 FROM zone_growth
 ORDER BY growth_rate_pct DESC;
 
-7. How fast is the price gap between the most expensive and cheapest zones widening month by month from November 2024 to May 2026?
+---7. How fast is the price gap between the most expensive and cheapest zones widening month by month from November 2024 to May 2026?
 
 Keeps the monthly gap
 Adds the month-to-month widening or narrowing
@@ -251,8 +249,7 @@ SELECT
 FROM monthly_gap
 ORDER BY date ASC;
 
-
-8. Which geopolitical zone experiences the most unpredictable food prices with the highest month to month fluctuations?
+---8. Which geopolitical zone experiences the most unpredictable food prices with the highest month to month fluctuations?
 
 
 WITH zone_monthly AS (
@@ -288,8 +285,7 @@ ORDER BY fluctuation_volatility DESC
 LIMIT 1;
 
 
-9. Which zone and food item combination shows the highest prices AND the fastest growth rate, making it the most urgent target for government food intervention?
-
+---9. Which zone and food item combination shows the highest prices AND the fastest growth rate, making it the most urgent target for government food intervention?
 
 WITH item_zone_monthly AS (
     SELECT date, food_item, 'North Central' AS zone, AVG(north_central) AS avg_price
